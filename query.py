@@ -1,7 +1,17 @@
 from typing import Dict
+import json
 import datetime
-import config
+import sys
 import requests
+
+VC_API_KEY = None
+try: 
+    with open("./.env.json", "r") as f:
+        VC_API_KEY = json.loads(f.read())["VC_API_KEY"]
+except Exception as e:
+    print("Could not find API Key file")
+    sys.exit()
+
 
 #Exception used when the date found in the JSON is not the current date
 class InvalidDate(Exception):
@@ -17,7 +27,7 @@ def get_all_weather_data(location: Dict[str, str]) -> tuple[Dict[str, str] | Non
     err = None
     try:
         URL = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/ \
-                {location['lat']},{location['long']}?unitGroup=us&key={config.VC_API_KEY}"
+                {location['lat']},{location['long']}?unitGroup=us&key={VC_API_KEY}"
         res = requests.get(URL)
         return (res.json(), err)
     except Exception as e:

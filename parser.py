@@ -1,5 +1,21 @@
 from typing import Dict
-from tests import EscCodes as ec
+
+class Code:
+    def __init__(self, code) -> None:
+        self.code: str = code 
+        self.end = "\033[0m"
+
+    def show(self, text): print( f"{self.code}{text}{self.end}" )
+    def ret(self, text): return ( f"{self.code}{text}{self.end}" )
+
+    
+class EscCode:
+    green = Code("\033[32m")
+    red = Code("\033[31m")
+    cyan = Code("\033[36m")
+    yellow = Code("\033[33m")
+    blue = Code("\033[34m")
+    magenta = Code("\033[35m")
 
 class Metric:
     count: int = 0
@@ -22,11 +38,11 @@ class Forecast:
     def __repr__(self) -> str:
         return (
                 f""" 
-        {ec.blue.ret('Feels Like:')} {ec.green.ret(self.feelslike)}
-        {ec.blue.ret('Temperature:')} {ec.green.ret(self.temp)}
-        {ec.blue.ret('Winds:')} {ec.green.ret(self.windSpeed)}
-        {ec.blue.ret('Precipitation:')} {ec.green.ret(self.precipitation)}
-        {ec.blue.ret('Humidity:')} {ec.green.ret(self.humidity)}
+        {EscCode.blue.ret('Feels Like:')} {EscCode.green.ret(self.feelslike)}
+        {EscCode.blue.ret('Temperature:')} {EscCode.green.ret(self.temp)}
+        {EscCode.blue.ret('Winds:')} {EscCode.green.ret(self.windSpeed)}
+        {EscCode.blue.ret('Precipitation:')} {EscCode.green.ret(self.precipitation)}
+        {EscCode.blue.ret('Humidity:')} {EscCode.green.ret(self.humidity)}
                 """
                 )
 
@@ -42,9 +58,9 @@ class Outlook:
     def __repr__(self) -> str:
         return (
                 f"""
-            {ec.red.ret('Days Outlook:')}
-            {ec.blue.ret('Sunrise:')}{ec.green.ret(self.sunrise)}
-            {ec.blue.ret('Sunset:')}{ec.green.ret(self.sunset)}
+            {EscCode.red.ret('Days Outlook:')}
+            {EscCode.blue.ret('Sunrise:')}{EscCode.green.ret(self.sunrise)}
+            {EscCode.blue.ret('Sunset:')}{EscCode.green.ret(self.sunset)}
             Morning: 
             -------
                 {self.morning}
