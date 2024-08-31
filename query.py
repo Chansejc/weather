@@ -3,15 +3,7 @@ import json
 import datetime
 import sys
 import requests
-
-VC_API_KEY = None
-try: 
-    with open("./.env.json", "r") as f:
-        VC_API_KEY = json.loads(f.read())["VC_API_KEY"]
-except Exception as e:
-    print("Could not find API Key file")
-    sys.exit()
-
+from config import VC_API_KEY 
 
 #Exception used when the date found in the JSON is not the current date
 class InvalidDate(Exception):

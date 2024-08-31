@@ -13,7 +13,7 @@ def tui():
             ) 
     index = menu.show() 
     if type(index) != int:
-        print("Error getting index from key press")
+        print("Error Getting index from key press")
         sys.exit()
     choice = options[index]
     
@@ -28,6 +28,7 @@ def tui():
             data, err = query.get_all_weather_data(cords)
             if err != None or data == None: 
                 print("Error Getting All Weather Data", err)
+                raise err
                 sys.exit()
 
             data, err = query.get_todays_data(data)
